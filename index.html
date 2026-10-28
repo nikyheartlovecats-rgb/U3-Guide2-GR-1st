@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colegio Montano - Interactive Whiteboard Study Guide</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        montanoBlue: '#1269A8',
+                        montanoYellow: '#F7D615',
+                        montanoGreen: '#54887D',
+                        montanoLightBlue: '#88B5C7',
+                        montanoOlive: '#A6B046',
+                        montanoBg: '#F2F5E9'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #F2F5E9;
+        }
+        .whiteboard-frame {
+            border: 6px solid #F7D615;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(18, 105, 168, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-montanoBg min-h-screen p-3 md:p-6 flex flex-col items-center">
+
+    <!-- Whiteboard Main Container -->
+    <div id="whiteboardContainer" class="whiteboard-frame w-full max-w-6xl bg-white shadow-xl flex flex-col overflow-hidden transition-all duration-300">
+        
+        <!-- Header Bar -->
+        <div class="bg-montanoBlue text-white p-4 md:p-5 flex flex-col sm:flex-row justify-between items-center gap-4 border-b-4 border-montanoYellow">
+            <div class="flex items-center gap-3">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyEop0yf6lZ7Jk9MILZxF1rBj4Oqs5esyhIQ&s" alt="Colegio Montano Logo" class="w-12 h-12 object-contain bg-white rounded-full p-1 shadow-md">
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-wide">Colegio Montano</h1>
+                    <p class="text-xs md:text-sm text-montanoLightBlue font-semibold">First Primary • English Study Guide • Our World 1 (Unit 3)</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="bg-montanoOlive text-white text-xs px-3 py-1.5 rounded-full font-bold uppercase tracking-wider shadow">Grammar I & II</span>
+                <button onclick="toggleFullScreen()" class="bg-montanoYellow text-montanoBlue font-bold text-xs md:text-sm px-4 py-2 rounded-lg hover:bg-yellow-400 transition shadow-md flex items-center gap-2">
+                    <span>⛶ Fullscreen</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs Bar -->
+        <div class="bg-montanoLightBlue bg-opacity-30 p-2 md:p-3 flex flex-wrap justify-center gap-2 border-b border-montanoLightBlue">
+            <button onclick="switchTab('theory')" id="btn-theory" class="tab-btn px-4 py-2 rounded-lg font-bold text-sm bg-montanoBlue text-white shadow transition">📚 Theory</button>
+            <button onclick="switchTab('examples')" id="btn-examples" class="tab-btn px-4 py-2 rounded-lg font-bold text-sm bg-white text-montanoBlue hover:bg-montanoBlue hover:text-white transition shadow-sm">💡 Examples (15)</button>
+            <button onclick="switchTab('exercises')" id="btn-exercises" class="tab-btn px-4 py-2 rounded-lg font-bold text-sm bg-white text-montanoBlue hover:bg-montanoBlue hover:text-white transition shadow-sm">✏️ Exercises (15)</button>
+            <button onclick="switchTab('reflection')" id="btn-reflection" class="tab-btn px-4 py-2 rounded-lg font-bold text-sm bg-white text-montanoBlue hover:bg-montanoBlue hover:text-white transition shadow-sm">🤔 Critical Reflection</button>
+            <button onclick="switchTab('evaluation')" id="btn-evaluation" class="tab-btn px-4 py-2 rounded-lg font-bold text-sm bg-white text-montanoBlue hover:bg-montanoBlue hover:text-white transition shadow-sm">📝 Formative Quiz</button>
+        </div>
+
+        <!-- Content Area -->
+        <div class="p-4 md:p-8 flex-1 overflow-y-auto bg-montanoBg max-h-[75vh]">
+            
+            <!-- THEORY TAB -->
+            <div id="tab-theory" class="tab-content space-y-6">
+                <div class="bg-white p-6 rounded-xl shadow-md border-l-8 border-montanoBlue">
+                    <h2 class="text-2xl font-bold text-montanoBlue mb-3">Grammar I: Possessive Adjectives (My, Your, His, Her)</h2>
+                    <p class="text-gray-700 text-base leading-relaxed mb-4">
+                        Possessive adjectives show who something belongs to. In First Primary, we use <strong>My</strong> (for I), <strong>Your</strong> (for You), <strong>His</strong> (for a boy/man), and <strong>Her</strong> (for a girl/woman) to talk about our body parts and physical features!
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+                        <div class="bg-montanoLightBlue bg-opacity-20 p-4 rounded-lg text-center border border-montanoLightBlue">
+                            <span class="font-bold text-montanoBlue block text-lg">I ➔ My</span>
+                            <p class="text-sm text-gray-600 mt-1">"<strong>My</strong> nose is small."</p>
+                        </div>
+                        <div class="bg-montanoLightBlue bg-opacity-20 p-4 rounded-lg text-center border border-montanoLightBlue">
+                            <span class="font-bold text-montanoBlue block text-lg">You ➔ Your</span>
+                            <p class="text-sm text-gray-600 mt-1">"<strong>Your</strong> eyes are green."</p>
+                        </div>
+                        <div class="bg-montanoLightBlue bg-opacity-20 p-4 rounded-lg text-center border border-montanoLightBlue">
+                            <span class="font-bold text-montanoBlue block text-lg">He ➔ His</span>
+                            <p class="text-sm text-gray-600 mt-1">"<strong>His</strong> hands are big."</p>
+                        </div>
+                        <div class="bg-montanoLightBlue bg-opacity-20 p-4 rounded-lg text-center border border-montanoLightBlue">
+                            <span class="font-bold text-montanoBlue block text-lg">She ➔ Her</span>
+                            <p class="text-sm text-gray-600 mt-1">"<strong>Her</strong> hair is black."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-md border-l-8 border-montanoGreen">
+                    <h2 class="text-2xl font-bold text-montanoGreen mb-3">Grammar II: Ability with "Can"</h2>
+                    <p class="text-gray-700 text-base leading-relaxed mb-4">
+                        We use the modal verb <strong>can</strong> to talk about abilities (things we are able to do). To ask questions, we put <strong>Can</strong> at the beginning!
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-green-50 p-4 rounded-lg border border-montanoGreen">
+                            <h3 class="font-bold text-montanoGreen mb-2">Affirmative & Negative Statements</h3>
+                            <ul class="list-disc pl-5 space-y-1 text-gray-700 text-sm">
+                                <li>I <strong>can</strong> draw. / She <strong>can</strong> run.</li>
+                                <li>No, he <strong>cannot</strong> (can't) walk.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg border border-montanoGreen">
+                            <h3 class="font-bold text-montanoGreen mb-2">Questions and Short Answers</h3>
+                            <ul class="list-disc pl-5 space-y-1 text-gray-700 text-sm">
+                                <li><strong>Can</strong> you draw? ➔ Yes, <strong>I can</strong>.</li>
+                                <li><strong>Can</strong> the father cook? ➔ Yes, <strong>he can</strong>. / No, <strong>he can't</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXAMPLES TAB -->
+            <div id="tab-examples" class="tab-content hidden space-y-6">
+                <div class="bg-montanoBlue text-white p-4 rounded-xl shadow">
+                    <h2 class="text-xl font-bold">Solved Examples (15 Total: 5 Basic, 5 Intermediate, 5 Advanced)</h2>
+                    <p class="text-sm text-montanoLightBlue">Review these step-by-step examples based on NatGeo Our World 1.</p>
+                </div>
+
+                <!-- BÁSICO -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-montanoBlue bg-montanoLightBlue bg-opacity-20 p-2 rounded">⭐ Basic Level Examples (Possessive Adjectives & Basic Can)</h3>
+                    
+                    <div class="bg-white p-4 rounded-xl shadow border-l-4 border-montanoOlive">
+                        <span class="text-xs font-bold bg-montanoOlive text-white px-2 py-1 rounded">Example 1 (Basic)</span>
+                        <p class="font-semibold text-gray-800 mt-2">Sentence: "____ nose is small." (Subject: I)</p>
+                        <p class="text-sm text-gray-600 mt-1"><strong>Solution:</strong> My. <span class="text-montanoBlue italic">Reason: The pronoun 'I' pairs with the possessive adjective 'My'.</span></p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl shadow border-l-4 border-montanoOlive">
+                        <span class="text-xs font-bold bg-montanoOlive text-white px-2 py-1 rounded">Example 2 (Basic)</span>
+                        <p class="font-semibold text-gray-800 mt-2">Sentence: "____ eyes are green." (Subject: You)</p>
+                        <p class="text-sm text-gray-600 mt-1"><strong>Solution:</strong> Your. <span class="text-montanoBlue italic">Reason: The pronoun 'You' matches with 'Your'.</span></p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl shadow border-l-4 border-montanoOlive">
+                        <span class="text-xs font-bold bg-montanoOlive text-white px-2 py-1 rounded">Example 3 (Basic)</span>
+                        <p class="font-semibold text-gray-800 mt-2">Sentence: "____ hands are small." (Subject: He / Grandfather)</p>
+                        <p class="text-sm text-gray-600 mt-1"><strong>Solution:</strong> His. <span class="text-montanoBlue italic">Reason: 'He' refers to a male, so we use 'His'.</span></p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl shadow border-l-4 border-montanoOlive">
+                        <span class="text-xs font-bold bg-montanoOlive text-white px-2 py-1 rounded">Example 4 (Basic)</span>
+                        <p class="font-semibold text-gray-800 mt-2">Sentence: "____ mouth is red." (Subject: She / Girl)</p>
+                        <p class="text-sm text-gray-600 mt-1"><strong>Solution:</strong> Her. <span class="text-montanoBlue italic">Reason: 'She' refers to a female, so we use 'Her'.</span></p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl shadow border-l-4 border-montanoOlive">
+                        <span class="text-xs font-bold bg-montanoOlive text-white px-2 py-1 rounded">Example 5 (Basic)</span>
+                        <p class="font-semibold text-gray-800 mt-2">Question: "Can you draw?" ➔ Answer: "Yes, I ______."</p>
+                        <p class="text-sm text-gray-600 mt-1"><strong>Solution:</strong> can. <span class="text-montanoBlue italic">Reason: Affirmative short answers use the modal 'can'.</span></p>
+                    </div>
+                </div>
+
+                <!-- INTERMEDIO -->
+                <div class="space-y-4 pt-4">
+                    <h3 class="text-lg font-bold text-montanoBlue bg-montanoLightBlue bg-opacity-20 p-2 rounded">⭐⭐ Intermediate Level Examples (Contextual Body Parts & Questions)</h3>
+                    
+                    <div class="bg-white p-4 rounded-xl shadow border-l-4 border-montanoBlue">
+                        <span class="text-xs font-bold bg-montanoBlue text-white px-2 py-1 rounded">Example 6 (Intermediate)</span>
+                        <p class="font-semibold text-gray-800 mt-2">Look at the grandfather: "He is tall. ______ feet are big."</p>
+                        <p class="text-sm text-gray-600 mt-1"><strong>Solution:</strong> His. <span class="text-montanoBlue italic">Reason: Referring to the grandfather (male), we use 'His'.</span></p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl shadow border-l-4 border-montanoBlue">
+                        <span class="text-xs font-bold bg-montanoBlue text-white px-2 py-1 rounded">Example 7 (Intermediate)</span>
+                        <p class="font-semibold text-gray-800 mt-2">Look at the girl: "She is short. ______ legs are short."</p>
+                        <p class="text-sm text-gray-600 mt-1"><strong>Solution:</strong> Her. <span class="text-montanoBlue italic">Reason: Referring to the girl (female), we use 'Her'.</span></p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl shadow border-l-4 border-montanoBlue">
+                        <span class="text-xs font-bold bg-montanoBlue text-white px-2 py-1 rounded">Example 8 (Intermediate)</span>
+                        <p class="font-semibold text-gray-800 mt-2">Question: "Can the father cook?" ➔ Short Answer: "Yes, he ______."</p>
+                        <p class="text-sm text-gray-600 mt-1"><strong>Solution:</strong> can. <span class="text-montanoBlue italic">Reason: Confirming ability for the father in the affirmative.</span></p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl shadow border-l-4 border-montanoBlue">
+                        <span class="text-xs font-bold bg-montanoBlue text-white px-2 py-1 rounded">Example 9 (Intermediate)</span>
+                        <p class="font-semibold text-gray-800 mt-2">Question: "Can the baby sister cook?" ➔ Short Answer: "No, she ______."</p>
+                        <p class="text-sm text-gray-600 mt-1"><strong>Solution:</strong> can't (cannot). <span class="text-montanoBlue italic">Reason: Negative short answer for a baby's inability to cook.</span></p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl shadow border-l-4 border-montanoBlue">
+                        <span class="text-xs font-bold bg-montanoBlue text-white px-2 py-1 rounded">Example 10 (Intermediate)</span>
+                        <p class="font-semibold text-gray-800 mt-2">Statement: "No. He ______ walk." (Looking at a baby in a stroller)</p>
+                        <p class="text-sm text-gray-600 mt-1"><strong>Solution:</strong> can't. <span class="text-montanoBlue italic">Reason: Expressing lack of physical ability.</span></p>
+                    </div>
+                </div>
+
+                <!-- AVANZADO -->
+                <div class="space-y-4 pt-4">
+                    <h3 class="text-lg font-bold text-montanoBlue bg-montanoLightBlue bg-opacity-20 p-2 rounded">⭐⭐⭐ Advanced Level Examples (Combined Grammar & Structural Agreement)</h3>
+                    
+                    <div class="bg-white p-4 rounded-xl shadow border-l-4 border-montanoGreen">
+                        <span class="text-xs font-bold bg-montanoGreen text-white px-2 py-1 rounded">Example 11 (Advanced)</span>
+                        <p class="font-semibold text-gray-800 mt-2">Complete: "Look at her head. ______ hair is black and ______ mouth is small."</p>
+                        <p class="text-sm text-gray-600 mt-1"><strong>Solution:</strong> Her / Her. <span class="text-montanoBlue italic">Reason: Both describe features belonging to the same female subject ('her').</span></p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl shadow border-l-4 border-montanoGreen">
+                        <span class="text-xs font-bold bg-montanoGreen text-white px-2 py-1 rounded">Example 12 (Advanced)</span>
+                        <p class="font-semibold text-gray-800 mt-2">Complete: "Look at his head. ______ hair is white and ______ nose is big."</p>
+                        <p class="text-sm text-gray-600 mt-1"><strong>Solution:</strong> His / His. <span class="text-montanoBlue italic">Reason: Both describe features belonging to the same male subject ('his').</span></p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl shadow border-l-4 border-montanoGreen">
+                        <span class="text-xs font-bold bg-montanoGreen text-white px-2 py-1 rounded">Example 13 (Advanced)</span>
+                        <p class="font-semibold text-gray-800 mt-2">Form the question: "______ the brother clean?" (Answer: "Yes, he can.")</p>
+                        <p class="text-sm text-gray-600 mt-1"><strong>Solution:</strong> Can. <span class="text-montanoBlue italic">Reason: Ability questions with 'can' always begin with the modal verb capitalized at the start of the sentence.</span></p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl shadow border-l-4 border-montanoGreen">
+                        <span class="text-xs font-bold bg-montanoGreen text-white px-2 py-1 rounded">Example 14 (Advanced)</span>
+                        <p class="font-semibold text-gray-800 mt-2">Contrast: "He is tall, but ______ arms are short. ______ sister can jump high."</p>
+                        <p class="text-sm text-gray-600 mt-1"><strong>Solution:</strong> his / His (or Her). <span class="text-montanoBlue italic">Reason: Combining possessive pronouns in descriptive narrative contexts.</span></p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl shadow border-l-4 border-montanoGreen">
+                        <span class="text-xs font-bold bg-montanoGreen text-white px-2 py-1 rounded">Example 15 (Advanced)</span>
+                        <p class="font-semibold text-gray-800 mt-2">Dialogue: "Can she watch TV?" ➔ "Yes, ______ ______."</p>
+                        <p class="text-sm text-gray-600 mt-1"><strong>Solution:</strong> she can. <span class="text-montanoBlue italic">Reason: Short affirmative answers mirror the pronoun ('she') and the modal ('can').</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXERCISES TAB -->
+            <div id="tab-exercises" class="tab-content hidden space-y-6">
+                <div class="bg-montanoGreen text-white p-4 rounded-xl shadow">
+                    <h2 class="text-xl font-bold">Practical Exercises (15 Total with Hidden Solutions)</h2>
+                    <p class="text-sm text-green-100">Test your knowledge! Click "Show Solution" to check your work.</p>
+                </div>
+
+                <!-- BÁSICO EJERCICIOS -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-montanoBlue bg-montanoLightBlue bg-opacity-20 p-2 rounded">⭐ Basic Level Exercises</h3>
+                    
+                    <!-- Ex 1 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">1. Complete with <span class="text-montanoBlue">My</span> or <span class="text-montanoBlue">Your</span>: "______ nose is small." (Pointing to yourself)</p>
+                        <button onclick="toggleSolution('sol-ex1')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Solution</button>
+                        <div id="sol-ex1" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Solution:</strong> My. <span class="italic">(Because you are talking about yourself).</span>
+                        </div>
+                    </div>
+
+                    <!-- Ex 2 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">2. Complete with <span class="text-montanoBlue">My</span> or <span class="text-montanoBlue">Your</span>: "______ eyes are green." (Talking to a friend)</p>
+                        <button onclick="toggleSolution('sol-ex2')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Solution</button>
+                        <div id="sol-ex2" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Solution:</strong> Your. <span class="italic">(Because you are talking directly to someone else).</span>
+                        </div>
+                    </div>
+
+                    <!-- Ex 3 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">3. Complete with <span class="text-montanoBlue">His</span> or <span class="text-montanoBlue">Her</span>: "______ hands are small." (Talking about a girl)</p>
+                        <button onclick="toggleSolution('sol-ex3')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Solution</button>
+                        <div id="sol-ex3" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Solution:</strong> Her. <span class="italic">(Female possessive adjective).</span>
+                        </div>
+                    </div>
+
+                    <!-- Ex 4 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">4. Complete with <span class="text-montanoBlue">His</span> or <span class="text-montanoBlue">Her</span>: "______ mouth is red." (Talking about a boy)</p>
+                        <button onclick="toggleSolution('sol-ex4')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Solution</button>
+                        <div id="sol-ex4" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Solution:</strong> His. <span class="italic">(Male possessive adjective).</span>
+                        </div>
+                    </div>
+
+                    <!-- Ex 5 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">5. Answer the question: "Can you draw?" ➔ "Yes, I ______."</p>
+                        <button onclick="toggleSolution('sol-ex5')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Solution</button>
+                        <div id="sol-ex5" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Solution:</strong> can. <span class="italic">(Affirmative short answer).</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INTERMEDIO EJERCICIOS -->
+                <div class="space-y-4 pt-4">
+                    <h3 class="text-lg font-bold text-montanoBlue bg-montanoLightBlue bg-opacity-20 p-2 rounded">⭐⭐ Intermediate Level Exercises</h3>
+                    
+                    <!-- Ex 6 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">6. Choose <span class="text-montanoBlue">Her / His</span>: "He is tall. ______ feet are big."</p>
+                        <button onclick="toggleSolution('sol-ex6')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Solution</button>
+                        <div id="sol-ex6" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Solution:</strong> His. <span class="italic">(Refers to the grandfather/male).</span>
+                        </div>
+                    </div>
+
+                    <!-- Ex 7 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">7. Choose <span class="text-montanoBlue">Her / His</span>: "She is short. ______ hands are small."</p>
+                        <button onclick="toggleSolution('sol-ex7')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Solution</button>
+                        <div id="sol-ex7" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Solution:</strong> Her. <span class="italic">(Refers to the girl).</span>
+                        </div>
+                    </div>
+
+                    <!-- Ex 8 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">8. Complete: "No. He ______ walk." (Baby in stroller)</p>
+                        <button onclick="toggleSolution('sol-ex8')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Solution</button>
+                        <div id="sol-ex8" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Solution:</strong> can't (cannot). <span class="italic">(Negative ability).</span>
+                        </div>
+                    </div>
+
+                    <!-- Ex 9 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">9. Complete question: "______ his sister jump?"</p>
+                        <button onclick="toggleSolution('sol-ex9')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Solution</button>
+                        <div id="sol-ex9" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Solution:</strong> Can. <span class="italic">(Questions start with Can).</span>
+                        </div>
+                    </div>
+
+                    <!-- Ex 10 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">10. Complete short answer: "Can the father cook?" ➔ "Yes, he ______."</p>
+                        <button onclick="toggleSolution('sol-ex10')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Solution</button>
+                        <div id="sol-ex10" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Solution:</strong> can. <span class="italic">(Affirmative short answer).</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AVANZADO EJERCICIOS -->
+                <div class="space-y-4 pt-4">
+                    <h3 class="text-lg font-bold text-montanoBlue bg-montanoLightBlue bg-opacity-20 p-2 rounded">⭐⭐⭐ Advanced Level Exercises</h3>
+                    
+                    <!-- Ex 11 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">11. Write about the girl: "She is short. ______ legs are short and ______ arms are short."</p>
+                        <button onclick="toggleSolution('sol-ex11')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Solution</button>
+                        <div id="sol-ex11" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Solution:</strong> Her / Her. <span class="italic">(Both blanks refer to the girl).</span>
+                        </div>
+                    </div>
+
+                    <!-- Ex 12 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">12. Write about the grandfather: "He is tall. ______ feet are big and ______ hands are big."</p>
+                        <button onclick="toggleSolution('sol-ex12')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Solution</button>
+                        <div id="sol-ex12" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Solution:</strong> His / His. <span class="italic">(Both blanks refer to the grandfather).</span>
+                        </div>
+                    </div>
+
+                    <!-- Ex 13 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">13. Complete the question & answer: "______ the baby sister cook?" ➔ "No, she ______."</p>
+                        <button onclick="toggleSolution('sol-ex13')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Solution</button>
+                        <div id="sol-ex13" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Solution:</strong> Can / can't. <span class="italic">(Interrogative modal + negative short answer).</span>
+                        </div>
+                    </div>
+
+                    <!-- Ex 14 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">14. Personalize: "______ hair is black, and ______ nose is small." (About yourself)</p>
+                        <button onclick="toggleSolution('sol-ex14')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Solution</button>
+                        <div id="sol-ex14" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Solution:</strong> My / My. <span class="italic">(First-person possessive adjectives).</span>
+                        </div>
+                    </div>
+
+                    <!-- Ex 15 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">15. Complete dialogue: "Can she watch TV?" ➔ "Yes, ______ ______."</p>
+                        <button onclick="toggleSolution('sol-ex15')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Solution</button>
+                        <div id="sol-ex15" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Solution:</strong> she can. <span class="italic">(Subject pronoun + modal verb).</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REFLECTION TAB -->
+            <div id="tab-reflection" class="tab-content hidden space-y-6">
+                <div class="bg-montanoOlive text-white p-4 rounded-xl shadow">
+                    <h2 class="text-xl font-bold">Critical Reflection & Logical Thinking</h2>
+                    <p class="text-sm text-yellow-100">Discuss these questions with your teacher or classmates in class.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-montanoBlue">
+                        <h3 class="font-bold text-montanoBlue text-lg mb-2">Question 1: Identity & Belonging</h3>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Why do we use different words like <em>my</em>, <em>your</em>, <em>his</em>, and <em>her</em> when talking about our bodies? How does this help us describe our friends at Colegio Montano correctly?
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-montanoGreen">
+                        <h3 class="font-bold text-montanoGreen text-lg mb-2">Question 2: Abilities & Growth</h3>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Think about when you were a baby: you couldn't walk or talk. Now, in First Primary, what are some amazing new things you <strong>can</strong> do that you couldn't do before?
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EVALUATION TAB -->
+            <div id="tab-evaluation" class="tab-content hidden space-y-6">
+                <div class="bg-montanoBlue text-white p-4 rounded-xl shadow">
+                    <h2 class="text-xl font-bold">Formative Quiz with Hidden Solutions</h2>
+                    <p class="text-sm text-montanoLightBlue">Test your mastery of Unit 3 Grammar!</p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Quiz 1 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">Q1. Choose the correct word: "Look at the grandfather. ______ hair is white."</p>
+                        <div class="mt-2 space-y-1 text-sm text-gray-700">
+                            <label class="block"><input type="radio" name="q1" value="a"> A) Her</label>
+                            <label class="block"><input type="radio" name="q1" value="b"> B) His</label>
+                            <label class="block"><input type="radio" name="q1" value="c"> C) My</label>
+                        </div>
+                        <button onclick="toggleSolution('sol-q1')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Answer</button>
+                        <div id="sol-q1" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Correct Answer: B) His</strong> <span class="italic">(Grandfather is male, so we use 'His').</span>
+                        </div>
+                    </div>
+
+                    <!-- Quiz 2 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">Q2. Choose the correct question: "______ the brother clean the room?"</p>
+                        <div class="mt-2 space-y-1 text-sm text-gray-700">
+                            <label class="block"><input type="radio" name="q2" value="a"> A) Can</label>
+                            <label class="block"><input type="radio" name="q2" value="b"> B) Is</label>
+                            <label class="block"><input type="radio" name="q2" value="c"> C) Has</label>
+                        </div>
+                        <button onclick="toggleSolution('sol-q2')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Answer</button>
+                        <div id="sol-q2" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Correct Answer: A) Can</strong> <span class="italic">(Ability questions begin with 'Can').</span>
+                        </div>
+                    </div>
+
+                    <!-- Quiz 3 -->
+                    <div class="bg-white p-5 rounded-xl shadow border border-montanoLightChild">
+                        <p class="font-bold text-gray-800">Q3. Select the right short answer: "Can she watch TV?" ➔ "No, ______."</p>
+                        <div class="mt-2 space-y-1 text-sm text-gray-700">
+                            <label class="block"><input type="radio" name="q3" value="a"> A) she can</label>
+                            <label class="block"><input type="radio" name="q3" value="b"> B) she can't</label>
+                            <label class="block"><input type="radio" name="q3" value="c"> C) he can't</label>
+                        </div>
+                        <button onclick="toggleSolution('sol-q3')" class="mt-3 bg-montanoBlue text-white text-xs px-3 py-1.5 rounded font-semibold hover:bg-blue-700 transition">Show Answer</button>
+                        <div id="sol-q3" class="hidden mt-3 p-3 bg-montanoLightBlue bg-opacity-20 rounded text-sm text-gray-700 border-l-4 border-montanoBlue">
+                            <strong>Correct Answer: B) she can't</strong> <span class="italic">('No' requires the negative form 'can't' and pronoun 'she').</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer Bar -->
+        <div class="bg-montanoBlue text-white p-3 text-center text-xs md:text-sm font-semibold border-t-2 border-montanoYellow flex justify-between items-center px-6">
+            <span>Colegio Montano • Excellence & Education</span>
+            <span>Our World 1 • Unit 3 Interactive Whiteboard</span>
+        </div>
+
+    </div>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        function switchTab(tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(el => el.classList.add('hidden'));
+
+            // Remove active style from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-montanoBlue', 'text-white');
+                btn.classList.add('bg-white', 'text-montanoBlue');
+            });
+
+            // Show selected tab content
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+
+            // Style active button
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.remove('bg-white', 'text-montanoBlue');
+            activeBtn.classList.add('bg-montanoBlue', 'text-white');
+        }
+
+        function toggleSolution(id) {
+            const solElement = document.getElementById(id);
+            if (solElement.classList.contains('hidden')) {
+                solElement.classList.remove('hidden');
+            } else {
+                solElement.classList.add('hidden');
+            }
+        }
+
+        function toggleFullScreen() {
+            const elem = document.getElementById('whiteboardContainer');
+            if (!document.fullscreenElement) {
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) {
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) {
+                    elem.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
